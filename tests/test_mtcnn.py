@@ -12,7 +12,7 @@ class TestMTCNN(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         global mtcnn
-        mtcnn = MTCNN(image_dimension=(561,561))
+        mtcnn = MTCNN()
 
     def test_detect_faces(self):
         """
@@ -71,8 +71,8 @@ class TestMTCNN(unittest.TestCase):
         Multiple instances of MTCNN can be created in the same thread.
         :return:
         """
-        detector_1 = MTCNN(steps_threshold=[.2, .7, .7], image_dimension=(561,561))
-        detector_2 = MTCNN(steps_threshold=[.1, .1, .1], image_dimension=(561,561))
+        detector_1 = MTCNN(steps_threshold=[.2, .7, .7])
+        detector_2 = MTCNN(steps_threshold=[.1, .1, .1])
 
         ivan = cv2.imread("mtcnn_tflite/data/ivan.jpg")
 

@@ -15,11 +15,11 @@ pip install mtcnn-tflite
 Similar to [the original implementation](https://github.com/ipazc/mtcnn), the following example illustrates the ease of use of this package:
 
 ```
->>> from mtcnn_tflite import MTCNN
+>>> from mtcnn_tflite.MTCNN import MTCNN
 >>> import cv2
 >>>
 >>> img = cv2.cvtColor(cv2.imread("ivan.jpg"), cv2.COLOR_BGR2RGB)
->>> detector = MTCNN.MTCNN(image_dimension=(561,561))
+>>> detector = MTCNN()
 >>> detector.detect_faces(img)
 [
     {

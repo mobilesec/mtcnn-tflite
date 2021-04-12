@@ -64,7 +64,7 @@ class MTCNN(object):
     """
 
     def __init__(self, min_face_size: int = 20, steps_threshold: list = None,
-                 scale_factor: float = 0.709, image_dimension = (1920,1080)):
+                 scale_factor: float = 0.709):
         """
         Initializes the MTCNN.
         :param min_face_size: minimum size of the face to detect
@@ -74,16 +74,15 @@ class MTCNN(object):
         if steps_threshold is None:
             steps_threshold = [0.6, 0.7, 0.7]
 
+        self.lastImgShape = None
+
         self._min_face_size = min_face_size
         self._steps_threshold = steps_threshold
         self._scale_factor = scale_factor
 
-        builder = ModelBuilder(image_dimension)
-        self._pnetlites, self._rnetlite, self._onetlite = builder.get_networks()
+        self.builder = ModelBuilder()
+        self._rnetlite, self._onetlite = self.builder.get_r_o_networks()
         
-        for i in range(len(self._pnetlites)):
-            self._pnetlites[i].allocate_tensors()
-
         self._rnetlite.allocate_tensors()
         self._onetlite.allocate_tensors()
 
@@ -286,6 +285,14 @@ class MTCNN(object):
             raise InvalidImage("Image not valid.")
 
         height, width, _ = img.shape
+        if self.lastImgShape != img.shape:
+            self._pnetlites = self.builder.create_pnet((height, width))
+            
+            for i in range(len(self._pnetlites)):
+                self._pnetlites[i].allocate_tensors()
+            
+            self.lastImgShape = img.shape
+
         stage_status = StageStatus(width=width, height=height)
 
         m = 12 / self._min_face_size

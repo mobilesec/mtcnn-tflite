@@ -27,7 +27,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='mtcnn_tflite',
-    version='0.0.2',
+    version='0.0.3',
     author="Philipp Hofer",
     author_email="philipp.hofer@ins.jku.at",
     description="MTCNN face detection implementation in Tensorflow Lite.",
