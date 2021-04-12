@@ -27,13 +27,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='mtcnn_tflite',
-    version='0.0.1',
+    version='0.0.2',
     author="Philipp Hofer",
     author_email="philipp.hofer@ins.jku.at",
     description="MTCNN face detection implementation in Tensorflow Lite.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mobilesec/mtcnn-tensorflowlite",
+    url="https://github.com/mobilesec/mtcnn-tflite",
     packages=setuptools.find_packages(exclude=["tests.*", "tests"]),
     install_requires=[
           "tensorflow>=2.0.0",

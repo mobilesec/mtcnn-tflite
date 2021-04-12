@@ -19,7 +19,7 @@ Similar to [the original implementation](https://github.com/ipazc/mtcnn), the fo
 >>> import cv2
 >>>
 >>> img = cv2.cvtColor(cv2.imread("ivan.jpg"), cv2.COLOR_BGR2RGB)
->>> detector = MTCNN()
+>>> detector = MTCNN.MTCNN(image_dimension=(561,561))
 >>> detector.detect_faces(img)
 [
     {
