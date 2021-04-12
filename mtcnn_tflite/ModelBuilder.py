@@ -79,7 +79,7 @@ class ModelBuilder:
             ctr = 0
             p_nets = []
             for scale in scales:
-                p_net = self.build_pnet((math.ceil(img_width*scale), math.ceil(img_height*scale), 3))
+                p_net = self.build_pnet((math.ceil(img_height*scale), math.ceil(img_width*scale), 3))
                 converter = tf.lite.TFLiteConverter.from_keras_model(p_net)
                 converter.optimizations = [tf.lite.Optimize.DEFAULT]
                 tflite_model = converter.convert()
@@ -90,7 +90,6 @@ class ModelBuilder:
         self.p_nets = []
         for p_net in self.cache[str(image_dimension)]:            
             self.p_nets.append(tf.lite.Interpreter(model_content=p_net))
-
 
         return self.p_nets
 
@@ -186,8 +185,6 @@ class ModelBuilder:
         return o_net
 
     def get_scales(self, min_face_size, img_width, img_height, scale_factor):
-        print("xxxx")
-        print(min_face_size)
         m = 12 / min_face_size
         min_layer = np.amin([img_height, img_width]) * m
         scales = []
